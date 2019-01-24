@@ -31,31 +31,42 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="@string/et_name"
-                android:id="@+id/tv_UserName"
                 android:textSize="18dp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/list_news"
+    <!--<ListView-->
+    <!--android:id="@+id/list_news"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_below="@+id/L1"-->
+    <!--android:paddingLeft="10dp"/>-->
+
+    <FrameLayout
+        android:id="@+id/frame_container_web"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/L1"
-        android:paddingLeft="10dp"/>
+        android:layout_below="@+id/L1" />
+
+    <FrameLayout
+        android:id="@+id/frame_container_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/L1" />
 
     <Button
         android:id="@+id/btn_logout"
-        android:layout_alignParentRight="true"
         style="@style/btn"
-        android:text="Logout"
-        android:background="@drawable/btn_bg"/>
-
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_bg"
+        android:text="Logout" />
 
 </RelativeLayout>

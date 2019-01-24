@@ -3,6 +3,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.mobility.rakan.androidproject.Fragment.ListFragment;
+import com.mobility.rakan.androidproject.Fragment.WebFragment;
 import com.mobility.rakan.androidproject.R;
 import com.mobility.rakan.androidproject.adapters.NewsAdapter;
 import com.mobility.rakan.androidproject.models.Constants;
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     String userName;
     TextView etUserName;
     Button logOut;
+    FragmentManager mFragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,18 +45,28 @@ public class MainActivity extends AppCompatActivity {
         logOut = findViewById(R.id.btn_logout);
 
 
+
         //region set user name
         userName = getUserName();
         etUserName = findViewById(R.id.tv_UserName);
         etUserName.setText(userName);
         //endregion
 
-        //region reading and display list of news
-        news = new ArrayList<>();
-        news = readJsonFile("news.json");
-        NewsAdapter mNewsAdapter = new NewsAdapter(MainActivity.this, news);
-        listNews.setAdapter(mNewsAdapter);
+        //region fragment list
+        mFragmentManager = getSupportFragmentManager();
+        ListFragment mListFragment = new ListFragment();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.frame_container_list, mListFragment, Constants.ListFragment);
+        mFragmentTransaction.commit();
+
         //endregion
+
+//        //region reading and display list of news
+//        news = new ArrayList<>();
+//        news = readJsonFile("news.json");
+//        NewsAdapter mNewsAdapter = new NewsAdapter(MainActivity.this, news);
+//        listNews.setAdapter(mNewsAdapter);
+//        //endregion
 
         //log out
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -63,70 +78,60 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        listNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                // onclick in list with send the user to the link of the news
-                Intent myIntent = new Intent(MainActivity.this, ViewNews.class);
-                Bundle b = new Bundle();
-                b.putString(Constants.Link, news.get(i).getLink());
-                myIntent.putExtras(b);
-                startActivity(myIntent);
-            }
-        });
+
     }
 
-    public ArrayList readJsonFile(String json_file) {
-
-        //----------------------------------------------
-        BufferedReader reader = null;
-        String mLine, title, description, link;
-        JSONObject obj;
-        JSONArray ary;
-        news = new ArrayList<>();
-        //----------------------------------------------
-
-        try {
-            InputStream is = getAssets().open(json_file);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-
-            is.read(buffer);
-            is.close();
-
-            mLine = new String(buffer, "UTF-8");
-
-            obj = new JSONObject(mLine);
-            ary = obj.getJSONArray("news");
-
-            for (int i = 0; i < ary.length(); i++) {
-                News News = new News();
-                obj = ary.getJSONObject(i);
-                //----------------------------------------------
-                title = obj.getString("title");
-                description = obj.getString("description");
-                link = obj.getString("link");
-                //----------------------------------------------
-                News.setTitle((i + 1) + "-" + title);
-                News.setDescription(description);
-                News.setLink(link);
-                news.add(News);
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    //log the exception
-                }
-            }
-        }
-        return news;
-    }
+//    public ArrayList readJsonFile(String json_file) {
+//
+//        //----------------------------------------------
+//        BufferedReader reader = null;
+//        String mLine, title, description, link;
+//        JSONObject obj;
+//        JSONArray ary;
+//        news = new ArrayList<>();
+//        //----------------------------------------------
+//
+//        try {
+//            InputStream is = getAssets().open(json_file);
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//
+//            is.read(buffer);
+//            is.close();
+//
+//            mLine = new String(buffer, "UTF-8");
+//
+//            obj = new JSONObject(mLine);
+//            ary = obj.getJSONArray("news");
+//
+//            for (int i = 0; i < ary.length(); i++) {
+//                News News = new News();
+//                obj = ary.getJSONObject(i);
+//                //----------------------------------------------
+//                title = obj.getString("title");
+//                description = obj.getString("description");
+//                link = obj.getString("link");
+//                //----------------------------------------------
+//                News.setTitle((i + 1) + "-" + title);
+//                News.setDescription(description);
+//                News.setLink(link);
+//                news.add(News);
+//            }
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (reader != null) {
+//                try {
+//                    reader.close();
+//                } catch (IOException e) {
+//                    //log the exception
+//                }
+//            }
+//        }
+//        return news;
+//    }
 
     private String getUserName() {
         Bundle b = getIntent().getExtras();
