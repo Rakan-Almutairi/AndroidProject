@@ -21,6 +21,6 @@
         <activity android:name=".activities.MainActivity"></activity>
         <activity android:name=".activities.LogingActivity"></activity>
         <activity android:name=".activities.ViewNews"></activity>
-        <activity android:name=".activities.RegisterActivit"></activity>
+        <activity android:name=".activities.RegisterActivity"></activity>
     </application>
 </manifest>

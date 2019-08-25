@@ -16,7 +16,7 @@ import com.mobility.rakan.androidproject.R;
 import com.mobility.rakan.androidproject.activities.sql.SQLiteHelper;
 import com.mobility.rakan.androidproject.models.Constants;
 
-public class RegisterActivit extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     EditText Et_Email, Et_Pws, Et_Name;
     Button Register, Login;
     String NameHolder, EmailHolder, PasswordHolder;
@@ -68,7 +68,7 @@ public class RegisterActivit extends AppCompatActivity {
                     EmptyEditTextAfterDataInsert();
                 }else{
                     //If any of Reg EditText empty then this block will be executed.
-                    Toast.makeText(RegisterActivit.this, "Please Enter all fields.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Please Enter all fields.", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -106,14 +106,14 @@ public class RegisterActivit extends AppCompatActivity {
             sqLiteDatabaseObj.close();
 
             // Printing toast message after done inserting.
-            Toast.makeText(RegisterActivit.this, "User Registered Successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, "User Registered Successfully", Toast.LENGTH_LONG).show();
 
         }
         // This block will execute if any of the registration EditText is empty.
         else {
 
             // Printing toast message if any of EditText is empty.
-            Toast.makeText(RegisterActivit.this, "Please Fill All The Required Fields.", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, "Please Fill All The Required Fields.", Toast.LENGTH_LONG).show();
 
         }
 
@@ -184,7 +184,7 @@ public class RegisterActivit extends AppCompatActivity {
         if (F_Result.equalsIgnoreCase(Constants.Email_Found)) {
 
             // If email is exists then toast msg will display.
-            Toast.makeText(RegisterActivit.this, "Email Already Exists", Toast.LENGTH_LONG).show();
+            Toast.makeText(RegisterActivity.this, "Email Already Exists", Toast.LENGTH_LONG).show();
 
         } else {
 
@@ -198,7 +198,7 @@ public class RegisterActivit extends AppCompatActivity {
     }
 
     public void sendToReg() {
-        Intent myIntent = new Intent(RegisterActivit.this, LogingActivity.class);
+        Intent myIntent = new Intent(RegisterActivity.this, LogingActivity.class);
         startActivity(myIntent);
         finish();
     }

@@ -57,7 +57,7 @@ public class LogingActivity extends AppCompatActivity {
         });
     }
     public void sendToReg() {
-        Intent myIntent = new Intent(LogingActivity.this, RegisterActivit.class);
+        Intent myIntent = new Intent(LogingActivity.this, RegisterActivity.class);
         startActivity(myIntent);
         finish();
     }
